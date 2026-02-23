@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Ricardo Esparza | Ingeniero de Sistemas">
+	<main class="min-h-screen bg-[#121212] flex items-center justify-center px-6">
+		<section class="max-w-4xl w-full flex flex-col md:flex-row items-center gap-12 py-10">
+			
+			<div class="flex-shrink-0">
+				<img 
+					src="/img/perfil.jpg" 
+					alt="Ricardo Esparza" 
+					class="w-48 h-48 md:w-56 md:h-56 object-cover rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-500"
+				/>
+			</div>
+
+			<div class="text-center md:text-left">
+				<h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-4">
+					Ricardo Javier <span class="text-gray-400">Esparza Torres</span>
+				</h1>
+				
+				<p class="text-xl text-gray-400 font-light leading-relaxed mb-8 max-w-2xl italic">
+					"Rescatando sistemas legacy y optimizando el rendimiento de plataformas de misión crítica. Más de 6 años de experiencia."
+				</p>
+
+				<div class="flex flex-wrap justify-center md:justify-start gap-5">
+					<a 
+						href="/posts" 
+						class="bg-white text-black hover:bg-gray-200 font-bold py-3 px-8 rounded-lg transition-transform hover:scale-105"
+					>
+						Casos de Estudio
+					</a>
+					
+					<a 
+						href="/pdf/CV_2026.pdf" 
+						target="_blank" 
+						rel="noopener noreferrer"
+						class="border border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white font-semibold py-3 px-8 rounded-lg transition-colors"
+					>
+						Descargar CV
+					</a>
+					<a 
+						href="/about-me" 
+						class="border border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white font-semibold py-3 px-8 rounded-lg transition-colors"
+					>
+						Sobre mi
+					</a>
+				</div>
+			</div>
+
+		</section>
+	</main>
+</Layout>

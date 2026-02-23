@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Sobre Mí | Ricardo Esparza">
+	<main class="min-h-screen bg-[#121212] text-gray-300 py-20 px-6">
+		<div class="max-w-3xl mx-auto">
+			<a href="/" class="text-gray-500 hover:text-white transition-colors mb-12 inline-block">
+				← Volver al inicio
+			</a>
+
+			<header class="mb-16">
+				<h1 class="text-5xl font-bold text-white mb-6">Sobre mí</h1>
+				<p class="text-xl leading-relaxed italic border-l-4 border-gray-700 pl-6">
+					"Mi enfoque no es solo escribir código, sino rescatar la estabilidad de negocios que dependen de sistemas complejos."
+				</p>
+			</header>
+
+			<section class="space-y-12">
+				<div>
+					<h2 class="text-2xl font-semibold text-white mb-4">Perfil Profesional</h2>
+					<p class="leading-relaxed mb-4">
+						Soy Ingeniero de Sistemas con más de 6 años de experiencia enfrentando uno de los retos más grandes de la industria: la <b>deuda técnica</b> y los <b>sistemas legacy</b>. 
+					</p>
+					<p class="leading-relaxed">
+						Me especializo en tomar plataformas que otros consideran "irrecuperables" y transformarlas en sistemas escalables, seguros y, sobre todo, mantenibles. Mi pasión es la optimización de procesos y el rendimiento de misión crítica.
+					</p>
+				</div>
+
+				<div>
+					<h2 class="text-2xl font-semibold text-white mb-6">Stack Técnico</h2>
+					<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+						<div class="bg-[#1a1a1a] p-4 rounded-lg border border-gray-800">
+							<span class="text-white block font-bold mb-1">Backend</span>
+							<span class="text-sm text-gray-500">Node.js, Python, Go</span>
+						</div>
+						<div class="bg-[#1a1a1a] p-4 rounded-lg border border-gray-800">
+							<span class="text-white block font-bold mb-1">Infraestructura</span>
+							<span class="text-sm text-gray-500">AWS, Docker, Kubernetes</span>
+						</div>
+						<div class="bg-[#1a1a1a] p-4 rounded-lg border border-gray-800">
+							<span class="text-white block font-bold mb-1">Bases de Datos</span>
+							<span class="text-sm text-gray-500">PostgreSQL, Redis, MongoDB</span>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<h2 class="text-2xl font-semibold text-white mb-4">Más allá del código</h2>
+					<p class="leading-relaxed">
+						Cuando no estoy analizando logs o refactorizando bases de datos, me enfoco en mantener un estilo de vida equilibrado. Creo firmemente que la disciplina en el entrenamiento y la nutrición se traduce directamente en una mejor capacidad de resolución de problemas bajo presión.
+					</p>
+				</div>
+			</section>
+
+			<footer class="mt-20 pt-10 border-t border-gray-800 text-center">
+				<p class="text-gray-500 mb-6">¿Tienes un sistema que necesita una intervención experta?</p>
+				<a href="mailto:tu-correo@ejemplo.com" class="bg-white text-black font-bold py-3 px-10 rounded-lg hover:bg-gray-200 transition-all">
+					Hablemos
+				</a>
+			</footer>
+		</div>
+	</main>
+</Layout>
