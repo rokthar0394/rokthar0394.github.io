@@ -1,46 +1,31 @@
-# Astro Starter Kit: Basics
+# 🚀 Ricardo Esparza | Software Engineer Portfolio
 
-```sh
-npm create astro@latest -- --template basics
-```
+Este es mi portafolio profesional y blog técnico, construido con **Astro** y **Tailwind CSS**. El sitio está diseñado bajo una estética minimalista en escala de grises, priorizando la legibilidad, el rendimiento y la experiencia de usuario.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🛠️ Stack Tecnológico
 
-## 🚀 Project Structure
+* **Framework:** [Astro 5.0](https://astro.build/) - Generación de sitios estáticos (SSG).
+* **Estilos:** [Tailwind CSS](https://tailwindcss.com/) - Diseño responsivo y tipografía optimizada.
+* **Contenido:** Markdown para la gestión de Casos de Estudio.
+* **Despliegue:** GitHub Actions & GitHub Pages.
 
-Inside of your Astro project, you'll see the following folders and files:
+## 📈 Características Principales
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+- **Performance First:** Puntuación de 100 en Lighthouse debido a la carga de assets optimizada de Astro.
+- **Arquitectura de Contenido:** Uso de *Content Collections* para un tipado seguro en TypeScript.
+- **Diseño Minimalista:** Interfaz enfocada en la ingeniería y el contenido técnico.
+- **CI/CD:** Flujo de despliegue automatizado cada vez que se hace un `push` a la rama `main`.
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## 📁 Estructura del Proyecto
 
-## 🧞 Commands
+* `/src/content/posts/`: Aquí se encuentran los archivos `.md` de mis casos de éxito.
+* `/src/pages/`: Definición de rutas dinámicas para los posts.
+* `/src/components/`: Componentes modulares y reutilizables.
 
-All commands are run from the root of the project, from a terminal:
+## 🚀 Instalación y Desarrollo Local
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Si deseas clonar este proyecto para pruebas locales:
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+1. **Clonar el repositorio:**
+   ```bash
+   git clone [https://github.com/rokthar0394/rokthar0394.github.io.git](https://github.com/rokthar0394/rokthar0394.github.io.git)
