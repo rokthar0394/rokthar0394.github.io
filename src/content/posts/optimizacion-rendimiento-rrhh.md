@@ -14,6 +14,8 @@ Al "abrir el capó" del sistema, identifiqué tres fallas estructurales:
 * **Explosión de Datos:** Tabla de permisos con registros duplicados hasta 64 veces, rompiendo los *Joins*.
 * **Payload Excesivo:** Envío de metadatos pesados (campo `extra`) innecesarios para la vista general.
 
+![Diagrama Antes - Carga Masiva](../../assets/antes-caso-offers.png)
+
 ## La Estrategia de Solución
 
 ### 1. Saneamiento de Base de Datos
@@ -27,5 +29,7 @@ Separé la información en dos niveles: una **Vista de Grilla** ligera para bús
 
 ## El Resultado
 Logramos reducir el tiempo de respuesta en un **98%**, pasando de 180 segundos a una respuesta casi instantánea de **2 segundos**.
+
+![Diagrama Antes - Carga Masiva](../../assets/despues-caso-offers.png)
 
 > **Lección de ingeniería:** Saber segmentar la información y limpiar la redundancia es tan importante como escribir código nuevo.
