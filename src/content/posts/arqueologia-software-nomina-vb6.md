@@ -1,35 +1,37 @@
 ---
-title: "Arqueología de Software: Rescatando un Proceso de Nómina en VB6"
-date: "2026-02-22"
-tags: ["Legacy Code", "Visual Basic 6", ".NET 6", "Troubleshooting"]
-categories: ["Casos de Estudio", "Día a día de un Ingeniero"]
-author: "Ricardo Esparza"
-description: "Crónica de cómo realicé ingeniería inversa a una DLL legacy para corregir errores críticos en la liquidación de haberes y asientos contables."
-showToc: true
+title: "Sincronización Crítica: Resolviendo Inconsistencias en una Migración de Nómina Legacy"
+description: "Diagnóstico y corrección de un motor de liquidación en Visual Basic 6.0 integrado con .NET 6."
+date: "2026-02-23"
+tags: ["Legacy", ".NET 6", "VB6", "SQL Server", "Troubleshooting"]
 ---
 
-## El Contexto: Un Puente entre dos Épocas
-En el proceso de modernización de nuestra plataforma, nos encontramos con un componente híbrido: una interfaz moderna en **AngularJS y .NET 6** que dependía de una lógica de negocio compleja encapsulada en una **DLL de Visual Basic 6.0**.
+## El Escenario
+En una empresa de telefonía móvil, coexistían dos mundos: un sistema **Cliente/Servidor en Visual Basic 6.0** y un nuevo **Portal Web en Angular y .NET 6**. Ambos compartían la misma base de datos debido a un proceso de migración gradual.
 
-Esta DLL manejaba el corazón financiero del sistema: liquidaciones de nómina y generación de asientos contables. Se detectaron inconsistencias graves en los cálculos que impedían el cierre contable de varios clientes.
+El motor de nómina, un proceso extremadamente complejo y probado, se mantenía en el sistema antiguo empaquetado en una **DLL**. El nuevo producto invocaba esta DLL para ejecutar liquidaciones globales, parciales y asientos contables.
 
-## El Reto de la Caja Negra
-El mayor obstáculo no era solo el lenguaje, sino el entorno. Al no existir documentación actualizada ni posibilidad de realizar un *debugging* directo desde el entorno moderno, tuve que retroceder en el tiempo:
+## El Problema
+A pesar de que el motor "ya funcionaba", empezaron a surgir **inconsistencias críticas** en los asientos contables y liquidaciones durante las pruebas finales. Con los plazos de entrega agotándose y la presión del despliegue a producción, el proyecto estaba en riesgo.
 
-1. **Entorno Controlado:** Configuré una máquina virtual con **Windows 7** para poder abrir el proyecto original en el IDE de Visual Basic 6.
-2. **Análisis Forense:** Sin rastro de flujos lógicos, utilicé la técnica de **papel y lápiz** para mapear cada llamada que el código .NET hacía hacia la DLL y entender cómo se transformaban los datos internamente.
+## El Diagnóstico: Ingeniería Inversa y Diagramación
+Para resolver un problema de esta naturaleza, donde el código fuente es una "caja negra" de décadas atrás, seguí este proceso:
 
-## Diagnóstico y Resolución
+1.  **Entorno Controlado:** Monté una VM con Windows 7 para ejecutar el IDE de VB6 y analizar el código fuente de la DLL.
+2.  **Debug Híbrido:** Debugueé la capa de .NET 6 para mapear exactamente qué datos se enviaban a la DLL y qué se esperaba de vuelta.
+3.  **Debugger Manual:** Debido a la dificultad de debuguear en tiempo real entre ambas tecnologías, utilicé papel y lápiz para trazar un **diagrama de flujo detallado**, identificando cada salto de datos y transformación lógica.
 
-### 1. El Error en los Asientos Contables
-Identifiqué que la DLL estaba realizando punteros a campos de datos obsoletos. Tras una actualización previa del esquema de base de datos, el código legacy seguía buscando el valor en `campo1` cuando la lógica de negocio actual ya lo había migrado a `campo2`.
+## La Solución Técnica
 
-### 2. Inconsistencia en Liquidaciones
-Descubrí conceptos de liquidación cuyos códigos habían sido modificados en la base de datos, pero permanecían "hardcodeados" en la lógica de la DLL. Esto causaba que ciertas liquidaciones parciales no se procesaran correctamente.
+### 1. Corrección en Asientos Contables
+Identifiqué que el proceso realizaba cálculos redundantes. Se tomaban valores "en crudo" de tablas de procesamiento cuando ya existía una tabla con los valores finales procesados por otro módulo.
+* **Acción:** Comenté la lógica de cálculo obsoleta (manteniendo la documentación del porqué) y redirigí el flujo para consumir directamente el valor pre-calculado.
 
-## La Solución Final
-Tras corregir la lógica, realicé la compilación de la nueva DLL y ejecuté un plan de pruebas riguroso en un ambiente de *staging* para asegurar que la integración con .NET 6 fuera perfecta. 
+### 2. Modernización del Flujo de Liquidaciones
+El motor dependía de "Conceptos" (grupos de información con reglas de cálculo). Un concepto base había quedado en desuso, causando errores en las liquidaciones mensuales y trimestrales.
+* **Acción:** En lugar de dejar los conceptos fijos (hardcoded) en la DLL antigua, modifiqué la integración para que los conceptos válidos se inyectaran dinámicamente desde el código moderno en .NET.
 
-**Resultado:** Se restableció la integridad de los procesos de nómina, permitiendo a los clientes generar sus asientos contables sin errores y garantizando el pago exacto a los empleados.
+## Resultado
+Tras sesiones de pruebas con los especialistas de nómina en el ambiente de QA, se validó la integridad de los datos. El proyecto se entregó en el plazo acordado y se realizó una presentación técnica al cliente explicando la resolución sin comprometer la confianza en el producto.
 
-> **Reflexión:** Ser un buen ingeniero a veces significa saber ser un buen historiador. Respetar y entender el código que se escribió hace 20 años es fundamental para poder modernizarlo con éxito.
+## Aprendizaje
+La modernización no es solo escribir código nuevo; es entender profundamente el pensamiento de quienes diseñaron la solución original. Revisar código legacy me enseñó que **respetar la lógica de negocio antigua es vital para asegurar la consistencia en el futuro.**

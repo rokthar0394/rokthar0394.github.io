@@ -1,35 +1,42 @@
 ---
-title: "Ingeniería de Producto: Integración y Parametrización del Módulo de Horas Extras"
-date: "2026-02-22"
-tags: ["Product Engineering", ".NET 6", "Angular", "Scalability"]
-categories: ["Casos de Estudio", "Día a día de un Ingeniero"]
-author: "Ricardo Esparza"
-description: "Cómo integré un módulo crítico de horas extras en un portal de RR.HH. existente, implementando flujos dinámicos y motores de cálculo parametrizables."
-showToc: true
+title: "Modernización de Sistemas Críticos: Migración de Módulo de Horas Extras a .NET 6"
+description: "De un entorno rígido en VB6 a una solución web dinámica, parametrizada y con flujos de aprobación flexibles."
+date: "2026-02-24"
+tags: ["Reingeniería", ".NET 6", "Oracle", "AngularJS", "Software Architecture"]
 ---
 
-## El Escenario
-El reto no era construir una aplicación desde cero, sino **extender un ecosistema de Recursos Humanos ya robusto**. El portal necesitaba un módulo de "Horas Extras" que reemplazara una lógica legacy en VB6, pero con una condición: debía integrarse orgánicamente en la arquitectura actual de **Angular y .NET 6**.
+## El Desafío Técnico
+El proyecto consistía en migrar el módulo de gestión de horas extras de una empresa de telefonía. El sistema origen, llamado "Web Tools", dependía de un ejecutable en **Visual Basic 6.0** para cualquier modificación lógica, mientras que el destino era un portal moderno (**PW+**) basado en **AngularJS** y **.NET 6**, ambos compartiendo una base de datos **Oracle**.
 
-## El Reto: Adaptación y Flexibilidad
-A diferencia de un desarrollo independiente, aquí tuve que respetar los patrones de diseño y la infraestructura ya establecida, asegurando que el nuevo módulo se sintiera como una parte nativa del sistema.
+El reto no era solo la traducción de código, sino la evolución funcional:
+1.  **Flujos Dinámicos:** Respetar y potenciar la creación de rutas de aprobación.
+2.  **Parametrización:** Eliminar valores embebidos (hardcoded) para permitir cambios en los cálculos sin tocar el código.
+3.  **Gestión de Feriados:** Implementar un motor de fechas para distinguir recargos provinciales y nacionales.
 
-### 1. Reingeniería de Flujos Dinámicos
-En lugar de programar un flujo rígido, analicé cómo el portal gestionaba las aprobaciones existentes:
-* **Acción:** Repliqué y adapté el motor de flujos dinámicos para que el cliente pudiera definir quién aprueba qué, dependiendo de la jerarquía organizacional.
-* **Resultado:** El módulo heredó la flexibilidad del portal, permitiendo cambios en la cadena de mando sin tocar una sola línea de código.
+## Mi Proceso de Ingeniería
 
-### 2. Parametrización de Cálculos (Motor de Reglas)
-Uno de los mayores dolores de cabeza del sistema antiguo era que los porcentajes y topes de horas extras estaban "hardcodeados" en el código de la DLL.
-* **Solución:** Implementé un sistema de **parametrización desde la interfaz**. Ahora, los administradores pueden ajustar recargos nocturnos, porcentajes de feriados o límites legales directamente desde el portal.
-* **Impacto:** Transformé una tarea de mantenimiento que antes requería un programador y una nueva compilación, en una tarea administrativa de 5 minutos.
+### 1. Arqueología de Código y Diagramación
+Utilicé **Notepad++** para documentar el flujo legacy, extrayendo las queries de Oracle y las reglas de negocio ocultas en el entorno de VB6. Con esto, diseñé diagramas de flujo en **Lucidchart** para visualizar el "as-is" antes de proponer el "to-be".
 
-### 3. Integración Transaccional con Nómina
-El módulo no solo captura datos; debe "sentarlos" en tablas de nómina históricas con absoluta precisión. Aseguré que la persistencia de datos cumpliera con las reglas de integridad del portal, evitando discrepancias en el pago final.
+### 2. Diseño de Parametrización por Rangos
+Identifiqué que los recargos variaban según el horario del empleado. En lugar de una lógica lineal, implementé un **módulo de parametrización de rangos**. Dividí los grupos en matutino, vespertino y nocturno, permitiendo que el cliente ajuste los porcentajes de recarga de forma independiente para cada grupo desde la UI.
 
-## Impacto del Proyecto
-* **Escalabilidad:** Al parametrizar los cálculos, el sistema quedó blindado ante cambios en las leyes laborales de diferentes países.
-* **Eficiencia Operativa:** El equipo de soporte técnico dejó de recibir tickets para "ajustes de fórmulas", ya que ahora el cliente tiene el control total.
-* **Mantenibilidad:** El módulo sigue los estándares del portal, facilitando futuras actualizaciones por cualquier miembro del equipo.
+### 3. Motor de Feriados a Medida
+A diferencia de usar una API externa, el cliente requería control total manual. Desarrollé un módulo CRUD para feriados con:
+* Clasificación Nacional/Provincial.
+* Control de auditoría mediante `updatedAt`.
+* Lógica de prevención de duplicidad por año.
 
-> **Reflexión de Ingeniería:** El verdadero valor de un desarrollador no es solo escribir código nuevo, sino saber extender sistemas existentes de forma inteligente, dejando herramientas que permitan al negocio ser autosuficiente.
+### 4. Flujo de Aprobación y Experiencia de Usuario (UX)
+Desarrollé la interfaz de solicitud en una sola página (Single Page) con reglas de negocio estrictas:
+* **Validación de Estado:** Bloqueo de nuevas solicitudes si existe una pendiente.
+* **Simulador de Liquidación:** Antes de enviar, el empleado puede ver un desglose del valor estimado de sus horas.
+* **Workflow Dinámico:** Integración con el motor de .NET 6 para permitir que RR.HH. cambie los niveles de aprobación (ej. de un solo nivel a requerir validación de nómina) sin intervención de desarrollo.
+
+
+
+## La Solución: El "Antes y Después"
+El sistema pasó de ser una "caja negra" difícil de mantener a una herramienta ágil. El cliente ahora tiene autonomía total para modificar quién aprueba y cuánto se paga por cada hora extra según la ley vigente o acuerdos internos, todo a través de parámetros en el portal.
+
+## Aprendizaje de Ingeniería
+Este proyecto me demostró que **modernizar no es solo cambiar el lenguaje de programación**. Muchas empresas no buscan "tecnología nueva" por moda, sino agilidad. Ganar la confianza del cliente dependió de entender su solución antigua y entregar algo que, respetando su esencia, fuera significativamente más sencillo y rápido de operar.
